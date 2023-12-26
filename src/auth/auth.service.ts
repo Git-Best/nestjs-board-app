@@ -7,7 +7,6 @@ export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    console.log('service', authCredentialsDto);
     return this.userRepository.createUser(authCredentialsDto);
   }
 }
