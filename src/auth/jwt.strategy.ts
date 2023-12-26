@@ -4,12 +4,13 @@ import { UserRepository } from './auth.repository';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { User } from './user.entity';
 import { Strategy } from 'passport-jwt';
+import * as config from 'config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly userRepository: UserRepository) {
     super({
-      secretOrKey: 'Secret1234',
+      secretOrKey: process.env.JWT_SECRET || config.get('jwt.secret'),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
